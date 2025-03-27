@@ -11,6 +11,7 @@ import notificationRoutes from "./routes/notification.route.js";
 import connectionRoutes from "./routes/connection.route.js";
 
 import { connectDB } from "./lib/db.js";
+import express from "express";
 
 dotenv.config();
 
@@ -43,6 +44,9 @@ if (process.env.NODE_ENV === "production") {
 		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 	});
 }
+app.use(express.json()); // parse JSON request bodies
+
+app.use("/api/v1/auth", authRoutes)
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
